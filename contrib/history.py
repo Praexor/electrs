@@ -58,6 +58,12 @@ def main():
     )
     log.info('subscribed to {} scripthashes', len(script_hashes))
 
+    responses = conn.call(
+        client.request('blockchain.scripthash.get_balance', script_hash)
+        for script_hash in script_hashes
+    )
+    log.info('balances: {}', responses)
+
     histories = conn.call(
         client.request('blockchain.scripthash.get_history', script_hash)
         for script_hash in script_hashes
